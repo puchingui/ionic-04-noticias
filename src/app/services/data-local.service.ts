@@ -7,8 +7,8 @@ import {Article} from '../interfaces/interfaces';
 })
 export class DataLocalService {
 
+  public noticias: Article[] = [];
   private storage: Storage | null = null;
-  private noticias: Article[] = [];
 
   constructor( private _storage: Storage ) {
     this.init();
@@ -17,6 +17,7 @@ export class DataLocalService {
   async init() {
     // eslint-disable-next-line no-underscore-dangle
     this.storage = await this._storage.create();
+    await this.cargarFavoritos();
   }
 
   guardarNoticia(noticia: Article) {
@@ -31,7 +32,11 @@ export class DataLocalService {
     }
   }
 
-  cargarFavoritos() {
+  async cargarFavoritos() {
+    const favoritos = await this.storage.get('favoritos');
 
+    if (favoritos) {
+      this.noticias = favoritos;
+    }
   }
 }

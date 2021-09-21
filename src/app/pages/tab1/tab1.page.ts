@@ -1,8 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NoticiasService} from '../../services/noticias.service';
 import {Article} from '../../interfaces/interfaces';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-tab1',
