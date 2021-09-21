@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
@@ -7,8 +8,8 @@ import {environment} from '../../environments/environment';
 const apiKey = environment.apiKey;
 const apiUrl = environment.apiUrl;
 const headers = new HttpHeaders({
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  'X-Api-Key': apiKey
+  'X-Api-Key': apiKey,
+  Authorization: apiKey
 });
 
 @Injectable({
@@ -41,7 +42,7 @@ export class NoticiasService {
   }
 
   private ejecutarQuery<T>(query: string): Observable<T> {
-    query = apiUrl + query;
+    query = apiUrl + query + `&apiKey=${apiKey}`;
     return this.http.get<T>( query, {headers} );
   }
 }
