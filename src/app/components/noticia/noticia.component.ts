@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Article} from '../../interfaces/interfaces';
+import {Article} from '../../interfaces/mediastack.interface';
 import {ActionSheetController, Platform} from '@ionic/angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
@@ -76,7 +76,7 @@ export class NoticiaComponent implements OnInit {
     if (this.platform.is('cordova')) {
       this.socialSharing.share(
         this.noticia.title,
-        this.noticia.source.name,
+        this.noticia.source,
         '',
         this.noticia.url
       );

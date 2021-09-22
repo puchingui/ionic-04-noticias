@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NoticiasService} from '../../services/noticias.service';
-import {Article} from '../../interfaces/interfaces';
+import {Article} from '../../interfaces/mediastack.interface';
 
 @Component({
   selector: 'app-tab1',
@@ -28,12 +28,12 @@ export class Tab1Page implements OnInit {
       .subscribe( resp => {
         // console.log(resp);
 
-        if(resp.articles.length === 0) {
+        if(resp.data.length === 0) {
           event.target.disabled = true;
           event.target.complete();
         }
 
-        this.noticias.push(...resp.articles);
+        this.noticias.push(...resp.data);
       });
 
     if (event) {

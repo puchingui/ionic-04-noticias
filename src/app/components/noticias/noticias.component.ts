@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Article} from '../../interfaces/interfaces';
+import {Article} from '../../interfaces/mediastack.interface';
 
 @Component({
   selector: 'app-noticias',

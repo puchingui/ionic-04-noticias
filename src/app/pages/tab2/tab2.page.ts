@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {IonSegment} from '@ionic/angular';
 import {NoticiasService} from '../../services/noticias.service';
-import {Article} from '../../interfaces/interfaces';
+import {Article} from '../../interfaces/mediastack.interface';
 
 @Component({
   selector: 'app-tab2',
@@ -12,7 +12,7 @@ export class Tab2Page implements OnInit, AfterViewInit {
 
   @ViewChild(IonSegment) segment: IonSegment;
 
-  categorias = ['business', 'entertainment', 'general', 'health', 'science', 'sports', 'technology'];
+  categorias = ['general ', 'business', 'entertainment', 'health', 'science', 'sports', 'technology'];
   noticias: Article[] = [];
 
   constructor(
@@ -35,8 +35,7 @@ export class Tab2Page implements OnInit, AfterViewInit {
   cargarNoticias(categoria: string, event?): void {
     this.noticiasService.getTopHeadlinesCategoria(categoria)
       .subscribe( resp => {
-        // console.log(resp);
-        this.noticias.push(...resp.articles);
+        this.noticias.push(...resp.data);
         if (event) {
           event.target.complete();
         }

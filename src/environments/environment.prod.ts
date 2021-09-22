@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiKey: 'a656bf244fec4a9b93cda05245f7b7a1',
-  apiUrl: 'https://newsapi.org/v2'
+  apiKey: '460c7b31cbc69c3e9faae417015ce975',
+  apiUrl: 'http://api.mediastack.com/v1'
 };

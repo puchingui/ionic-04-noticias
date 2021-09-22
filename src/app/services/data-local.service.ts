@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Storage} from '@ionic/storage-angular';
-import {Article} from '../interfaces/interfaces';
+import {Article} from '../interfaces/mediastack.interface';
 import { ToastController } from '@ionic/angular';
 
 @Injectable({

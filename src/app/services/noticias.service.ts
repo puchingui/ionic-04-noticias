@@ -1,23 +1,21 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {ResponseTopHeadlines} from '../interfaces/interfaces';
 import {environment} from '../../environments/environment';
+import {ResponseNews} from '../interfaces/mediastack.interface';
 
 const apiKey = environment.apiKey;
 const apiUrl = environment.apiUrl;
-const headers = new HttpHeaders({
-  'X-Api-Key': apiKey,
-  Authorization: apiKey
-});
 
 @Injectable({
   providedIn: 'root'
 })
 export class NoticiasService {
 
-  headlinesPage = 0;
+  limit = 25;
+  offset = 0;
   categoriaActual = '';
   categoriaPage = 0;
 
@@ -25,24 +23,25 @@ export class NoticiasService {
     private http: HttpClient
   ) { }
 
-  getTopHeadlines(): Observable<ResponseTopHeadlines> {
-    this.headlinesPage++;
-    return this.ejecutarQuery<ResponseTopHeadlines>(`/top-headlines?country=us&page=${this.headlinesPage}`);
+  getTopHeadlines(): Observable<ResponseNews> {
+    const result = this.ejecutarQuery<ResponseNews>(`/news?languages=es&limit=${this.limit}&offset=${this.offset}`);
+    this.offset += this.limit;
+    return result;
   }
 
-  getTopHeadlinesCategoria(categoria: string): Observable<ResponseTopHeadlines> {
+  getTopHeadlinesCategoria(categoria: string): Observable<ResponseNews> {
     if (this.categoriaActual === categoria) {
-      this.categoriaPage++;
+      this.offset += this.limit;
     } else {
-      this.categoriaPage = 1;
+      this.offset = 0;
       this.categoriaActual = categoria;
     }
 
-    return this.ejecutarQuery<ResponseTopHeadlines>(`/top-headlines?country=us&category=${categoria}&page=${this.categoriaPage}`);
+    return this.ejecutarQuery<ResponseNews>(`/news?languages=es&categories=${categoria}&limit=${this.limit}&offset=${this.offset}`);
   }
 
   private ejecutarQuery<T>(query: string): Observable<T> {
-    query = apiUrl + query + `&apiKey=${apiKey}`;
-    return this.http.get<T>( query, {headers} );
+    query = apiUrl + query + `&access_key=${apiKey}`;
+    return this.http.get<T>( query );
   }
 }
